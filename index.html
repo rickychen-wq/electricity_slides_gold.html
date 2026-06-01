@@ -619,44 +619,63 @@
     </div>
     <div class="cbox reveal">
       <div class="circuit-box" style="margin-bottom:20px;">
-        <!-- 燈泡並聯: 正確! 兩條支路從電池分叉，各走一顆燈泡再匯合 -->
-        <svg viewBox="0 0 340 210" style="width:100%">
-          <!-- 主線: 電池左→分叉上下兩路→各走燈泡→匯合→電池右 -->
-          <!-- 左側主幹 -->
-          <path class="wire" d="M40 105 L40 60 M40 150 L40 105"/>
-          <!-- 右側主幹 -->
-          <path class="wire" d="M300 60 L300 150"/>
-          <!-- 上支路 -->
-          <path class="wire" d="M40 60 L110 60 M230 60 L300 60"/>
-          <path class="wire-flow" d="M40 60 L110 60 M230 60 L300 60"/>
-          <!-- 下支路 -->
-          <path class="wire" d="M40 150 L110 150 M230 150 L300 150"/>
-          <path class="wire-flow" d="M40 150 L110 150 M230 150 L300 150" style="animation:flow 0.7s linear infinite 0.35s;"/>
-          <!-- 電流從電池流出 -->
-          <path class="wire-flow" d="M40 150 L40 60"/>
-          <path class="wire-flow" d="M300 60 L300 150" style="animation:flow 0.7s linear infinite 0.5s;"/>
-          <!-- 電池在左側 垂直 -->
-          <rect x="26" y="80" width="28" height="50" rx="3" fill="url(#battGold)"/>
-          <rect x="30" y="74" width="18" height="8" rx="2" fill="#f4d77a"/>
-          <text x="40" y="88" font-size="10" fill="#060504" font-weight="bold" text-anchor="middle">＋</text>
-          <text x="40" y="124" font-size="10" fill="#060504" font-weight="bold" text-anchor="middle">－</text>
-          <!-- 燈泡A 上支路 -->
-          <circle class="bulb-glow" cx="170" cy="60" r="28" fill="url(#bulbGold)"/>
-          <circle cx="170" cy="60" r="40" fill="#f4d77a" opacity="0.15"/>
-          <text x="170" y="67" font-size="17" text-anchor="middle">💡</text>
-          <!-- 燈泡B 下支路 -->
-          <circle class="bulb-glow" cx="170" cy="150" r="28" fill="url(#bulbGold)"/>
-          <circle cx="170" cy="150" r="40" fill="#f4d77a" opacity="0.15"/>
-          <text x="170" y="157" font-size="17" text-anchor="middle">💡</text>
+        <!--
+          梯子形並聯：
+          左幹(x=40) 和 右幹(x=300) 垂直
+          兩條橫支路各接一顆燈泡
+          支路A: y=70  支路B: y=145
+          電池在底部橫線(y=200)中間
+        -->
+        <svg viewBox="0 0 340 230" style="width:100%">
+          <!-- 左幹線 -->
+          <path class="wire" d="M40 20 L40 210"/>
+          <!-- 右幹線 -->
+          <path class="wire" d="M300 20 L300 210"/>
+          <!-- 底部橫線（電池） -->
+          <path class="wire" d="M40 210 L300 210"/>
+          <!-- 頂部橫線（封頂） -->
+          <path class="wire" d="M40 20 L300 20"/>
+
+          <!-- 電流：順時針繞外框 -->
+          <path class="wire-flow" d="M40 210 L40 20 L300 20 L300 210 L40 210"/>
+
+          <!-- 支路A 橫線: 左幹→燈A→右幹, y=70 -->
+          <path class="wire" d="M40 70 L118 70 M182 70 L300 70"/>
+          <path class="wire-flow" d="M40 70 L118 70" style="animation:flow 0.65s linear infinite 0.1s;"/>
+          <path class="wire-flow" d="M182 70 L300 70" style="animation:flow 0.65s linear infinite 0.2s;"/>
+
+          <!-- 支路B 橫線: 左幹→燈B→右幹, y=145 -->
+          <path class="wire" d="M40 145 L118 145 M182 145 L300 145"/>
+          <path class="wire-flow" d="M40 145 L118 145" style="animation:flow 0.65s linear infinite 0.4s;"/>
+          <path class="wire-flow" d="M182 145 L300 145" style="animation:flow 0.65s linear infinite 0.5s;"/>
+
+          <!-- 電池（底部中間） -->
+          <rect x="110" y="196" width="120" height="22" rx="3" fill="url(#battGold)"/>
+          <rect x="107" y="200" width="7" height="14" rx="2" fill="#f4d77a"/>
+          <text x="118" y="211" font-size="11" fill="#060504" font-weight="bold">＋</text>
+          <text x="215" y="211" font-size="11" fill="#060504" font-weight="bold">－</text>
+
+          <!-- 燈泡A（支路A中間） -->
+          <circle class="bulb-glow" cx="150" cy="70" r="28" fill="url(#bulbGold)"/>
+          <circle cx="150" cy="70" r="40" fill="#f4d77a" opacity="0.15"/>
+          <text x="150" y="77" font-size="18" text-anchor="middle">💡</text>
+
+          <!-- 燈泡B（支路B中間） -->
+          <circle class="bulb-glow" cx="150" cy="145" r="28" fill="url(#bulbGold)"/>
+          <circle cx="150" cy="145" r="40" fill="#f4d77a" opacity="0.15"/>
+          <text x="150" y="152" font-size="18" text-anchor="middle">💡</text>
+
           <!-- 分叉節點圓點 -->
-          <circle cx="40" cy="60" r="5" fill="var(--gold)"/>
-          <circle cx="40" cy="150" r="5" fill="var(--gold)"/>
-          <circle cx="300" cy="60" r="5" fill="var(--gold)"/>
-          <circle cx="300" cy="150" r="5" fill="var(--gold)"/>
-          <!-- 標示 -->
-          <text x="170" y="15" font-size="11" fill="var(--gold)" text-anchor="middle">↑ 各自獨立支路</text>
+          <circle cx="40" cy="70"  r="5" fill="var(--gold)"/>
+          <circle cx="300" cy="70" r="5" fill="var(--gold)"/>
+          <circle cx="40" cy="145"  r="5" fill="var(--gold)"/>
+          <circle cx="300" cy="145" r="5" fill="var(--gold)"/>
+
+          <!-- 極性標示 -->
+          <text x="25" y="16" font-size="12" fill="var(--gold)">＋</text>
+          <text x="304" y="216" font-size="12" fill="var(--muted)">－</text>
         </svg>
-        <div class="circuit-cap">燈泡並聯 → 兩條支路，各自獨立</div>
+        <div class="circuit-cap">燈泡並聯 → 梯子形，各自獨立支路</div>
       </div>
       <div class="cbox-h">燈泡並聯 💡💡</div>
       <ul class="clist">
@@ -750,19 +769,50 @@
 </section>
 
 <script>
-// ─── gold dust particles ───
+// ─── soft mouse aura ───
 const c = document.getElementById('dust'), x = c.getContext('2d');
-let W,H,ps=[];
-function rz(){W=c.width=innerWidth;H=c.height=innerHeight;}
-rz(); addEventListener('resize',rz);
-class P{constructor(){this.r();}
-  r(){this.x=Math.random()*W;this.y=Math.random()*H;this.s=Math.random()*1.6+0.3;
-    this.vx=(Math.random()-0.5)*0.25;this.vy=(Math.random()-0.5)*0.25;this.l=Math.random();}
-  u(){this.x+=this.vx;this.y+=this.vy;this.l+=0.0025;if(this.l>1||this.x<0||this.x>W||this.y<0||this.y>H)this.r();}
-  d(){const a=Math.sin(this.l*Math.PI)*0.5;x.beginPath();x.arc(this.x,this.y,this.s,0,7);
-    x.fillStyle=`rgba(212,175,55,${a})`;x.fill();}}
-for(let i=0;i<90;i++)ps.push(new P());
-(function loop(){x.clearRect(0,0,W,H);ps.forEach(p=>{p.u();p.d();});requestAnimationFrame(loop);})();
+let W, H, mouse = {x: -999, y: -999}, aura = [];
+function rz(){ W = c.width = innerWidth; H = c.height = innerHeight; }
+rz(); addEventListener('resize', rz);
+
+// 跟著滑鼠的殘影點，緩慢擴散消失
+class Orb {
+  constructor(mx, my) {
+    this.x = mx; this.y = my;
+    this.r = Math.random() * 60 + 30;        // 光暈半徑放大
+    this.alpha = Math.random() * 0.32 + 0.12; // 透明度稍高
+    this.decay = Math.random() * 0.006 + 0.003; // 消失更慢
+    this.dr = Math.random() * 1.2 + 0.5;      // 擴散更明顯
+  }
+  update() {
+    this.r += this.dr;
+    this.alpha -= this.decay;
+  }
+  draw() {
+    const g = x.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
+    g.addColorStop(0,   `rgba(244,215,122,${this.alpha})`);
+    g.addColorStop(0.5, `rgba(212,175,55,${this.alpha * 0.5})`);
+    g.addColorStop(1,   `rgba(168,134,44,0)`);
+    x.beginPath();
+    x.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    x.fillStyle = g;
+    x.fill();
+  }
+  dead() { return this.alpha <= 0; }
+}
+
+addEventListener('mousemove', e => {
+  mouse.x = e.clientX; mouse.y = e.clientY;
+  // 每次移動只加 1~2 個，不多
+  if (Math.random() > 0.4) aura.push(new Orb(mouse.x, mouse.y));
+});
+
+(function loop(){
+  x.clearRect(0, 0, W, H);
+  aura = aura.filter(o => !o.dead());
+  aura.forEach(o => { o.update(); o.draw(); });
+  requestAnimationFrame(loop);
+})();
 
 // ─── reveal + nav ───
 const sl=document.querySelectorAll('.slide'), nav=document.getElementById('nav'), pb=document.getElementById('progress');
